@@ -1,0 +1,18 @@
+apiVersion: addons.cluster.x-k8s.io/v1alpha1
+kind: HelmChartProxy
+metadata:
+  name: fluxcd
+  namespace: default
+spec:
+  clusterSelector:
+    matchLabels:
+      fluxcd: enabled
+  repoURL: https://fluxcd-community.github.io/helm-charts
+  chartName: flux2
+  namespace: flux-system
+  options:
+    waitForJobs: true
+    wait: true
+    timeout: 5m
+  reconcileStrategy: InstallOnce
+  releaseName: flux2

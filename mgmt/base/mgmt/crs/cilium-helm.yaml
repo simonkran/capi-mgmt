@@ -1,0 +1,23 @@
+apiVersion: addons.cluster.x-k8s.io/v1alpha1
+kind: HelmChartProxy
+metadata:
+  name: cilium
+  namespace: default
+spec:
+  clusterSelector:
+    matchLabels:
+      cilium: enabled
+  repoURL: https://helm.cilium.io/
+  chartName: cilium
+  namespace: kube-system
+  options:
+    waitForJobs: true
+    wait: true
+    timeout: 5m
+  reconcileStrategy: InstallOnce
+  releaseName: cilium
+  valuesTemplate: |
+    envoy:
+      enabled: false
+    operator:
+      replicas: 1

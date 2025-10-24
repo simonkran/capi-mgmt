@@ -1,0 +1,15 @@
+apiVersion: addons.cluster.x-k8s.io/v1beta1
+kind: ClusterResourceSet
+metadata:
+  name: flux-bootstrap-dev
+  namespace: default
+spec:
+  strategy: ApplyOnce
+  clusterSelector:
+    matchLabels:
+      flux-bootstrap: enabled
+  resources:
+    - name: flux-install-dev
+      kind: ConfigMap
+    - name: flux-config-dev
+      kind: ConfigMap

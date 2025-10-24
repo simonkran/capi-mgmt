@@ -1,0 +1,8 @@
+# Kubernetes config files (may contain sensitive credentials)
+kubeconfig*
+
+# Personal notes
+.NOTES.md
+
+# macOS
+.DS_Store

@@ -1,0 +1,39 @@
+apiVersion: addons.cluster.x-k8s.io/v1alpha1
+kind: HelmChartProxy
+metadata:
+  name: fluxcd-sync
+  namespace: default
+spec:
+  clusterSelector:
+    matchLabels:
+      fluxcd-sync: enabled
+  repoURL: https://fluxcd-community.github.io/helm-charts
+  chartName: flux2-sync
+  namespace: flux-system
+  options:
+    waitForJobs: true
+    wait: true
+    timeout: 5m
+  reconcileStrategy: InstallOnce
+  releaseName: flux2-sync
+  valuesTemplate: |
+    gitRepository:
+      spec:
+        ref:
+          branch: main
+        url: https://github.com/simonkran/capi-mgmt
+    kustomization:
+      spec:
+        path: ./mgmt/dev/mgmt-0
+        healthChecks:
+          - apiVersion: cluster.x-k8s.io/v1beta1
+            kind: Cluster
+            name: capi-quickstart
+            namespace: default
+        postBuild:
+          substitute:
+            CLUSTER_NAME: "capi-quickstart"
+            CLUSTER_ENV: "dev"
+            CONTROL_PLANE_MACHINE_COUNT: "1"
+            WORKER_MACHINE_COUNT: "1"
+            KUBERNETES_VERSION: "v1.34.0"
