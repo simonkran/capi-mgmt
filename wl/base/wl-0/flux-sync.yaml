@@ -1,7 +1,4 @@
 ---
-# ConfigMap containing GitRepository for this specific workload cluster
-# This ConfigMap will be created on the management cluster and applied to
-# the workload cluster via ClusterResourceSet
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -19,11 +16,10 @@ data:
     spec:
       interval: 5m
       ref:
-        branch: main
+        branch: ${GIT_BRANCH:=main}
       timeout: 60s
       url: https://github.com/${GIT_USER}/${GIT_REPO}
 ---
-# ConfigMap containing Kustomization for this specific workload cluster
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -47,8 +43,6 @@ data:
         kind: GitRepository
         name: ${CLUSTER_NAME}-apps
 ---
-# ClusterResourceSet specific to this workload cluster
-# This ensures the Flux resources are applied to the workload cluster
 apiVersion: addons.cluster.x-k8s.io/v1beta1
 kind: ClusterResourceSet
 metadata:
