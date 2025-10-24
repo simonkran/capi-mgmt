@@ -1,0 +1,37 @@
+apiVersion: addons.cluster.x-k8s.io/v1alpha1
+kind: HelmChartProxy
+metadata:
+  name: capi-operator
+  namespace: default
+spec:
+  clusterSelector:
+    matchLabels:
+      capi-operator: enabled
+  repoURL: https://kubernetes-sigs.github.io/cluster-api-operator
+  chartName: cluster-api-operator
+  namespace: capi-operator
+  options:
+    waitForJobs: true
+    wait: true
+    timeout: 5m
+  reconcileStrategy: InstallOnce
+  releaseName: capi-operator
+  valuesTemplate: |
+    core:
+      cluster-api: {}
+    bootstrap:
+      kubeadm: {}
+    controlPlane:
+      kubeadm: {}
+    infrastructure:
+      docker: {}
+    addon:
+      helm: {}
+    manager:
+      featureGates:
+        core:
+          ClusterTopology: true
+        kubeadm:
+          ClusterTopology: true
+        docker:
+          ClusterTopology: true
