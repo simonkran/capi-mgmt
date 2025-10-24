@@ -9,7 +9,7 @@ else
     echo "${CLUSTER_NAME} cluster is not running. Installing it!"
 fi
 
-kind create cluster --name kind-mgmt --config setup/kind-cluster-with-extramounts.yaml
+kind create cluster --name kind-mgmt --config kind-cluster-with-extramounts.yaml
 
 helm repo add capi-operator https://kubernetes-sigs.github.io/cluster-api-operator --force-update
 helm repo add jetstack https://charts.jetstack.io --force-update
