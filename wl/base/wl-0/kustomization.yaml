@@ -2,5 +2,3 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - wl-0.yaml
-  - source-0.yaml
-  - ks-0-yaml
