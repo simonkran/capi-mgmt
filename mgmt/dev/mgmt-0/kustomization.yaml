@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - ../../base/mgmt
   - wl-0.yaml
+  - wl-1.yaml
