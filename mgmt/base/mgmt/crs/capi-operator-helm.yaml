@@ -20,3 +20,5 @@ spec:
     infrastructure:
       docker:
         enabled: true
+      addon:
+        helm
