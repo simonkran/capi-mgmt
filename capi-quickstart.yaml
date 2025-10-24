@@ -348,6 +348,8 @@ metadata:
     cilium: enabled
     fluxcd: enabled
     fluxcd-sync: enabled
+    cert-manager: enabled
+    capi-operator: enabled
 spec:
   clusterNetwork:
     pods:
