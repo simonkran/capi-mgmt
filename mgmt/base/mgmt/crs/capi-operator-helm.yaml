@@ -18,20 +18,15 @@ spec:
   releaseName: capi-operator
   valuesTemplate: |
     core:
-      cluster-api:
-        enabled; true
+      cluster-api: {}
     bootstrap:
-      kubeadm:
-        enabled: true
+      kubeadm: {}
     controlPlane:
-      kubeadm:
-        enabled: true
+      kubeadm: {}
     infrastructure:
-      docker:
-        enabled: true
+      docker: {}
     addon:
-      helm: 
-        enabled: true
+      helm: {}
     manager:
       featureGates:
         core:
