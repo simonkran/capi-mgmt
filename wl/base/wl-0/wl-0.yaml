@@ -348,7 +348,7 @@ metadata:
     cluster.x-k8s.io/cluster-name: ${CLUSTER_NAME}
     cilium: enabled
     fluxcd: enabled
-    fluxcd-sync: enabled
+    # fluxcd-sync: enabled
     # cert-manager: enabled
 spec:
   clusterNetwork:

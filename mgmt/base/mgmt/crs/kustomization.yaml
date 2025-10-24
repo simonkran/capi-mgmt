@@ -4,6 +4,5 @@ resources:
   - cilium-helm.yaml
   - flux-helm.yaml
   - flux-sync-helm.yaml
-  - flux-gitops-resources.yaml
   - capi-operator-helm.yaml
   - cert-manager-helm.yaml
