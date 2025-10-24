@@ -21,4 +21,4 @@ spec:
       docker:
         enabled: true
     addon:
-      helm
+      helm : {}
