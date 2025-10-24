@@ -1,0 +1,13 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ${CLUSTER_NAME}-apps
+  namespace: flux-system
+spec:
+  force: false
+  interval: 5m
+  path: ${KS_PATH} # Example: ./mgmt/dev/mgmt-0
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: ${CLUSTER_NAME}-apps

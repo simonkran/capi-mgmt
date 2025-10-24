@@ -1,0 +1,11 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: ${CLUSTER_NAME}-apps
+  namespace: flux-system
+spec:
+  interval: 5m
+  ref:
+    branch: ${GIT_BRANCH:=main}
+  timeout: 60s
+  url: https://github.com/${GIT_USER}/${GIT_REPO}
