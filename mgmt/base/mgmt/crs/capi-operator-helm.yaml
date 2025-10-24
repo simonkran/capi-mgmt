@@ -17,8 +17,26 @@ spec:
   reconcileStrategy: InstallOnce
   releaseName: capi-operator
   valuesTemplate: |
+    core:
+      cluster-api:
+        enabled; true
+    bootstrap:
+      kubeadm:
+        enabled: true
+    controlPlane:
+      kubeadm:
+        enabled: true
     infrastructure:
       docker:
         enabled: true
     addon:
-      helm : {}
+      helm: 
+        enabled: true
+    manager:
+      featureGates:
+        core:
+          ClusterTopology: true
+        kubeadm:
+          ClusterTopology: true
+        docker:
+          ClusterTopology: true
