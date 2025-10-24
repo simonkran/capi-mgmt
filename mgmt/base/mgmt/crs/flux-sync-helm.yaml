@@ -6,7 +6,7 @@ metadata:
 spec:
   clusterSelector:
     matchLabels:
-      fluxcd-sync: enabled
+      fluxcd-mgmt-sync: enabled
   repoURL: https://fluxcd-community.github.io/helm-charts
   chartName: flux2-sync
   namespace: flux-system
@@ -30,10 +30,3 @@ spec:
             kind: Cluster
             name: capi-quickstart
             namespace: default
-        postBuild:
-          substitute:
-            CLUSTER_NAME: "capi-quickstart"
-            CLUSTER_ENV: "dev"
-            CONTROL_PLANE_MACHINE_COUNT: "1"
-            WORKER_MACHINE_COUNT: "1"
-            KUBERNETES_VERSION: "v1.34.0"
