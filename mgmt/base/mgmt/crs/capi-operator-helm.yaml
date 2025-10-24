@@ -8,7 +8,7 @@ spec:
     matchLabels:
       capi-operator: enabled
   repoURL: https://kubernetes-sigs.github.io/cluster-api-operator
-  chartName: capi-operator
+  chartName: cluster-api-operator
   namespace: capi-operator
   options:
     waitForJobs: true
