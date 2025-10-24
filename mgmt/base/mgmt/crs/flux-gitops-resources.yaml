@@ -1,0 +1,56 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flux-gitrepository-template
+  namespace: default
+data:
+  gitrepository.yaml: |
+    apiVersion: source.toolkit.fluxcd.io/v1
+    kind: GitRepository
+    metadata:
+      name: cluster-apps
+      namespace: flux-system
+    spec:
+      interval: 5m
+      ref:
+        branch: main
+      timeout: 60s
+      url: https://github.com/simonkran/capi-mgmt
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flux-kustomization-template
+  namespace: default
+data:
+  kustomization.yaml: |
+    apiVersion: kustomize.toolkit.fluxcd.io/v1
+    kind: Kustomization
+    metadata:
+      name: cluster-apps
+      namespace: flux-system
+    spec:
+      force: false
+      interval: 5m
+      path: ./test
+      prune: true
+      sourceRef:
+        kind: GitRepository
+        name: cluster-apps
+---
+apiVersion: addons.cluster.x-k8s.io/v1beta1
+kind: ClusterResourceSet
+metadata:
+  name: flux-gitops-resources
+  namespace: default
+spec:
+  clusterSelector:
+    matchLabels:
+      fluxcd-sync: enabled
+  resources:
+    - kind: ConfigMap
+      name: flux-gitrepository-template
+    - kind: ConfigMap
+      name: flux-kustomization-template
+  strategy: ApplyOnce
