@@ -2,7 +2,7 @@ apiVersion: cluster.x-k8s.io/v1beta2
 kind: ClusterClass
 metadata:
   name: ${CLUSTER_NAME}
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   controlPlane:
     healthCheck:
@@ -259,7 +259,7 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: DockerClusterTemplate
 metadata:
   name: ${CLUSTER_NAME}-cluster
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   template:
     spec: {}
@@ -268,7 +268,7 @@ apiVersion: controlplane.cluster.x-k8s.io/v1beta2
 kind: KubeadmControlPlaneTemplate
 metadata:
   name: ${CLUSTER_NAME}-control-plane
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   template:
     spec:
@@ -295,7 +295,7 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: DockerMachineTemplate
 metadata:
   name: ${CLUSTER_NAME}-control-plane
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   template:
     spec:
@@ -307,7 +307,7 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: DockerMachineTemplate
 metadata:
   name: ${CLUSTER_NAME}-default-worker-machinetemplate
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   template:
     spec:
@@ -319,7 +319,7 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: DockerMachinePoolTemplate
 metadata:
   name: ${CLUSTER_NAME}-default-worker-machinepooltemplate
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   template:
     spec:
@@ -329,7 +329,7 @@ apiVersion: bootstrap.cluster.x-k8s.io/v1beta2
 kind: KubeadmConfigTemplate
 metadata:
   name: ${CLUSTER_NAME}-default-worker-bootstraptemplate
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   template:
     spec:
@@ -343,27 +343,27 @@ apiVersion: cluster.x-k8s.io/v1beta2
 kind: Cluster
 metadata:
   name: ${CLUSTER_NAME}
-  namespace: default
+  namespace: ${NAMESPACE}
   labels:
     cluster.x-k8s.io/cluster-name: ${CLUSTER_NAME}
-    cilium: enabled
-    fluxcd: enabled
+    cilium: ${CILIUM_ENABLED:="enabled"}
+    fluxcd: ${FLUXCD_ENABLED:="disbled"}
     # fluxcd-sync: enabled
     # cert-manager: enabled
 spec:
   clusterNetwork:
     pods:
       cidrBlocks:
-        - ${POD_CIDR:=192.168.0.0/16}
-    serviceDomain: ${SERVICE_DOMAIN:=cluster.local}
+        - ${POD_CIDR:=["192.168.0.0/16"]}
+    serviceDomain: ${SERVICE_DOMAIN:="cluster.local"}
     services:
       cidrBlocks:
-        - ${SERVICE_CIDR:=10.128.0.0/12}
+        - ${SERVICE_CIDR:=["10.128.0.0/12"]}
   topology:
     classRef:
       name: ${CLUSTER_NAME}
     controlPlane:
-      replicas: ${CONTROL_PLANE_MACHINE_COUNT:=1}
+      replicas: ${CONTROL_PLANE_MACHINE_COUNT:="1"}
     variables:
       - name: imageRepository
         value: ""
@@ -377,9 +377,9 @@ spec:
           enabled: true
           enforce: baseline
           warn: restricted
-    version: ${KUBERNETES_VERSION:=v1.34.0}
+    version: ${KUBERNETES_VERSION:="v1.34.0"}
     workers:
       machinePools:
         - class: default-worker
           name: mp-0
-          replicas: ${WORKER_MACHINE_COUNT:=1}
+          replicas: ${WORKER_MACHINE_COUNT:="1"}
