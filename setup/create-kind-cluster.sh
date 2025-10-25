@@ -49,7 +49,7 @@ helm install capi-operator capi-operator/cluster-api-operator \
 echo "sleep 75s"
 sleep 75
 
-kubectl apply -f ./mgmt/base/mgmt/crs/
+kubectl apply -k ./mgmt/base/mgmt/crs/
 
 helm repo add fluxcd-community https://fluxcd-community.github.io/helm-charts --force-update
 helm install flux fluxcd-community/flux2 -n flux-system --create-namespace --wait
