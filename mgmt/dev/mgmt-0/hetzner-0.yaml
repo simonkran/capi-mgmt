@@ -27,7 +27,7 @@ spec:
       HCLOUD_REGION: "fsn1"
       HCLOUD_CONTROL_PLANE_MACHINE_TYPE: "cax21"
       HCLOUD_WORKER_MACHINE_TYPE: "cax21"
-      K8S_VERSION: "v1.32.0"
+      K8S_VERSION: "v1.33.0"
       SSH_KEY_NAME: "hetzner"
 
       CILIUM_ENABLED: "enabled"
