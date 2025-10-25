@@ -47,8 +47,8 @@ helm install capi-operator capi-operator/cluster-api-operator \
   --set manager.featureGates.docker.ClusterTopology=true \
   --wait --timeout 180s
 
-echo "sleep 75s"
-sleep 75
+echo "Waiting for controllers... Max. 5 min."
+kubectl wait --for=condition=Available deployment/caaph-controller-manager -n helm-addon-system --timeout=300s
 
 kubectl apply -k ./mgmt/base/mgmt/crs/
 
