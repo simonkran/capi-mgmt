@@ -4,4 +4,4 @@ resources:
   - ../../base/mgmt
   - wlc-0.yaml
   - wlc-1.yaml
-  - hetzner-0.yaml
+  # - hetzner-0.yaml
