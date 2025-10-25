@@ -1,15 +1,33 @@
 #!/bin/bash
 
+cd "$(dirname "$0")/.."
+
 CLUSTER_NAME="kind-mgmt"
 
-if kind get clusters 2>/dev/null | grep -q "^${CLUSTER_NAME}$"; then
-    echo "${CLUSTER_NAME} cluster is running. Deleting it!"
-    kind delete cluster --name kind-mgmt
-else
-    echo "${CLUSTER_NAME} cluster is not running. Installing it!"
+# Check for existing kind clusters
+CLUSTERS=$(kind get clusters 2>/dev/null)
+
+if [ -n "$CLUSTERS" ]; then
+    echo "Found existing kind cluster(s):"
+    echo "$CLUSTERS"
+    echo ""
+    read -p "Do you want to delete these clusters? (y/n): " -n 1 -r
+    echo ""
+
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "$CLUSTERS" | while read -r cluster; do
+            echo "Deleting cluster: $cluster"
+            kind delete cluster --name "$cluster"
+        done
+    else
+        echo "Deletion cancelled. Exiting."
+        exit 0
+    fi
 fi
 
-kind create cluster --name kind-mgmt --config kind-cluster-with-extramounts.yaml
+# Create new cluster
+echo "Creating new cluster: ${CLUSTER_NAME}"
+kind create cluster --name "${CLUSTER_NAME}" --config kind-cluster-with-extramounts.yaml
 
 helm repo add capi-operator https://kubernetes-sigs.github.io/cluster-api-operator --force-update
 helm repo add jetstack https://charts.jetstack.io --force-update
@@ -31,7 +49,7 @@ helm install capi-operator capi-operator/cluster-api-operator \
 echo "sleep 75s"
 sleep 75
 
-kubectl apply -f ../mgmt/base/mgmt/crs/
+kubectl apply -f ./mgmt/base/mgmt/crs/
 
 helm repo add fluxcd-community https://fluxcd-community.github.io/helm-charts --force-update
 helm install flux fluxcd-community/flux2 -n flux-system --create-namespace --wait
