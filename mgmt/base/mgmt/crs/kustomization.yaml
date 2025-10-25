@@ -6,3 +6,5 @@ resources:
   - flux-sync-helm.yaml
   - capi-operator-helm.yaml
   - cert-manager-helm.yaml
+  - hetzner-ccm-helm.yaml
+  - hetzner-clusterresourceset.yaml

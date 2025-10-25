@@ -1,0 +1,12 @@
+apiVersion: addons.cluster.x-k8s.io/v1beta1
+kind: ClusterResourceSet
+metadata:
+  name: hetzner-config
+spec:
+  strategy: ApplyOnce
+  clusterSelector:
+    matchLabels:
+      hetzner-config: enabled
+  resources:
+    - name: hcloud
+      kind: Secret

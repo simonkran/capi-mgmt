@@ -150,6 +150,11 @@ kind: Cluster
 metadata:
   name: ${CLUSTER_NAME}
   namespace: default
+  labels:
+    cilium: enabled
+    hetzner-config: enabled
+    hetzner-ccm: enabled
+    fluxcd: enabled
 spec:
   clusterNetwork:
     pods:

@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./wlc/dev/wlc-0
+  path: ./wlc/dev/docker
   prune: true
   sourceRef:
     kind: GitRepository
