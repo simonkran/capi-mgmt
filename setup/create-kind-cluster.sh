@@ -40,6 +40,7 @@ helm install capi-operator capi-operator/cluster-api-operator \
   --set bootstrap.kubeadm.enabled=true \
   --set controlPlane.kubeadm.enabled=true \
   --set infrastructure.docker.enabled=true \
+  --set infrastructure.hetzner.enabled=true \
   --set addon.helm.enabled=true \
   --set manager.featureGates.core.ClusterTopology=true \
   --set manager.featureGates.kubeadm.ClusterTopology=true \
