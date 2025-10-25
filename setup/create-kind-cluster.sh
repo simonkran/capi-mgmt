@@ -27,7 +27,7 @@ fi
 
 # Create new cluster
 echo "Creating new cluster: ${CLUSTER_NAME}"
-kind create cluster --name "${CLUSTER_NAME}" --config kind-cluster-with-extramounts.yaml
+kind create cluster --name "${CLUSTER_NAME}" --config setup/kind-cluster-with-extramounts.yaml
 
 helm repo add capi-operator https://kubernetes-sigs.github.io/cluster-api-operator --force-update
 helm repo add jetstack https://charts.jetstack.io --force-update
