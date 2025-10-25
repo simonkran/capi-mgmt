@@ -18,14 +18,15 @@ spec:
   releaseName: hetzner-ccm
   valuesTemplate: |
     env:
-      # Update network name in 1Password after new cluster deployment
-      - name: HCLOUD_NETWORK
-        valueFrom:
-          secretKeyRef:
-            name: hcloud
-            key: network
       - name: HCLOUD_TOKEN
         valueFrom:
           secretKeyRef:
-            name: hcloud
-            key: token
+            name: hetzner
+            key: hcloud
+    # Update network name in 1Password after new cluster deployment
+    # env:
+    #   - name: HCLOUD_NETWORK
+    #     valueFrom:
+    #       secretKeyRef:
+    #         name: hetzner
+    #         key: network
