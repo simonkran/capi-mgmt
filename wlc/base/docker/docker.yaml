@@ -348,6 +348,7 @@ metadata:
     cluster.x-k8s.io/cluster-name: ${CLUSTER_NAME}
     cilium: ${CILIUM_ENABLED:="enabled"}
     fluxcd: ${FLUXCD_ENABLED:="disbled"}
+    hetzner-config-test: enabled
     # fluxcd-sync: enabled
     # cert-manager: enabled
 spec:

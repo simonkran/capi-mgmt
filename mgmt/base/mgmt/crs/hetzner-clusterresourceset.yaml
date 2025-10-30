@@ -8,6 +8,7 @@ spec:
   clusterSelector:
     matchLabels:
       hetzner-config: enabled
+      hetzner-config-test: enabled
   resources:
     - name: hcloud
       kind: Secret
