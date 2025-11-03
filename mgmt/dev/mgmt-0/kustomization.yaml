@@ -4,4 +4,4 @@ resources:
   - ../../base/mgmt
   - docker-0.yaml
   # - docker-1.yaml
-  - hetzner-0.yaml
+  # - hetzner-0.yaml
