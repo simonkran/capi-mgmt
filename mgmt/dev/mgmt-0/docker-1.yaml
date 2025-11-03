@@ -24,7 +24,7 @@ spec:
       NAMESPACE: "default"
       CONTROL_PLANE_MACHINE_COUNT: "1"
       WORKER_MACHINE_COUNT: "1"
-      KUBERNETES_VERSION: "v1.34.0"
+      KUBERNETES_VERSION: "v1.33.0"
 
       CILIUM_ENABLED: "enabled"
 
