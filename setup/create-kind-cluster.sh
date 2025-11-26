@@ -48,6 +48,7 @@ helm install capi-operator capi-operator/cluster-api-operator \
   --wait --timeout 180s
 
 echo "Waiting for controllers... Max. 5 min."
+sleep 45
 kubectl wait --for=condition=Available deployment/caaph-controller-manager -n helm-addon-system --timeout=300s
 
 kubectl apply -k ./mgmt/base/mgmt/crs/
